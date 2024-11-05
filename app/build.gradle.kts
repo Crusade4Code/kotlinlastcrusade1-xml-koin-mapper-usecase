@@ -1,16 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ben.manes)
 }
 
 android {
-    namespace = "com.example.projeto1alexandre"
-    compileSdk = 34
+    namespace = "com.example.kotlinlastcrusade"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.projeto1alexandre"
+        applicationId = "com.example.kotlinlastcrusade"
         minSdk = 29
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -30,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     packaging {
         resources {
@@ -73,6 +74,8 @@ dependencies {
     testImplementation(libs.coroutines.test)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
     testImplementation(libs.mockk)
     testImplementation(libs.core.testing)
+    testImplementation(libs.kotlin.test)
 }
