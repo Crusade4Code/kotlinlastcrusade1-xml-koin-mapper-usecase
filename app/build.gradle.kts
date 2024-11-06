@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.kotlinlastcrusade"
+    namespace = "com.example.kotlinlastcrusade1"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.kotlinlastcrusade"
+        applicationId = "com.example.kotlinlastcrusade1"
         minSdk = 29
         targetSdk = 35
         versionCode = 1
