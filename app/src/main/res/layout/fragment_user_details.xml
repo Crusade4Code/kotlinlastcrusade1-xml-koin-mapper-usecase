@@ -13,7 +13,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:contentDescription="@string/str_avatar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +99,7 @@
         android:clickable="true" />
 
     <TextView
-        android:id="@+id/txtAguarde"
+        android:id="@+id/txt_wait"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

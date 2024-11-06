@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KotlinLastCrusade"
+rootProject.name = "KotlinLastCrusade1"
 include(":app")
