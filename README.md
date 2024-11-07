@@ -20,25 +20,21 @@ For a deeper dive into the architecture, SOLID principles, and additional techni
 
 # Branches and Technologies Variations
                 
-<div style="text-align: center; font-family: monospace; line-height: 1.2;">
-  <pre style="display: inline-block; margin: 0; padding: 0; background: none; border: none;">
+<pre style="display: inline-block; margin: 0; padding: 0; background: none; border: none;">
               ┌──────────────┐        
               │              │        
-              │ <b style="color: red;">    Main    </b> │ 
+              │     <a href="https://github.com/Crusade4Code/kotlinlastcrusade1-xml-koin-mapper-usecase/tree/main" style="text-decoration: none; color: inherit; display: inline-block;">Main</a>     │   LiveData
               │              │        
               └──────┬───────┘        
                      │                
-                     │                
-                     │                
-       ┌─────────────┴────────────────
+       ┌─────────────┴───────────────
        │                              
 ┌──────┴───────┐                      
 │              │                      
-│     <a href="https://github.com/Crusade4Code/crusade4code.github.io" style="text-decoration: none; color: inherit; display: inline-block;">Flow</a>     │                      
+│     <a href="https://github.com/Crusade4Code/kotlinlastcrusade1-xml-koin-mapper-usecase/tree/flow" style="text-decoration: none; color: inherit; display: inline-block;">Flow</a>     │                      
 │              │                      
 └──────────────┘                      
-  </pre>
-</div>     
+</pre> 
 
 ## Getting Started
 1. Clone the repository.
