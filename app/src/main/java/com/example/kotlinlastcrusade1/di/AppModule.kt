@@ -1,5 +1,7 @@
 package com.example.kotlinlastcrusade1.di
 
+import com.example.kotlinlastcrusade1.core.coroutines.dispatchers.DefaultDispatchersProvider
+import com.example.kotlinlastcrusade1.core.coroutines.dispatchers.base.DispatchersProvider
 import com.example.kotlinlastcrusade1.data.remote.GitHubApi
 import com.example.kotlinlastcrusade1.data.repository.RepoRepositoryImpl
 import com.example.kotlinlastcrusade1.data.repository.UserRepositoryImpl
@@ -23,8 +25,9 @@ val appModule = module {
             .build()
             .create(GitHubApi::class.java)
     }
-    single<UserRepository> { UserRepositoryImpl(get()) }
-    single<RepoRepository> { RepoRepositoryImpl(get()) }
+    single<DispatchersProvider> { DefaultDispatchersProvider() }
+    single<UserRepository> { UserRepositoryImpl(get(), get()) }
+    single<RepoRepository> { RepoRepositoryImpl(get(), get()) }
     factory { GetUsersUseCase(get()) }
     factory { GetUserDetailsUseCase(get()) }
     factory { GetUserReposUseCase(get()) }

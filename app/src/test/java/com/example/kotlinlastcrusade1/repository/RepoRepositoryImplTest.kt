@@ -1,5 +1,6 @@
 package com.example.kotlinlastcrusade1.repository
 
+import com.example.kotlinlastcrusade1.core.coroutines.dispatchers.TestDispatchersProvider
 import com.example.kotlinlastcrusade1.data.model.RepoDto
 import com.example.kotlinlastcrusade1.data.remote.GitHubApi
 import com.example.kotlinlastcrusade1.data.repository.RepoRepositoryImpl
@@ -24,10 +25,11 @@ class RepoRepositoryImplTest {
     private val api: GitHubApi = mock(GitHubApi::class.java)
     private val testScheduler = TestCoroutineScheduler() // Create shared scheduler
     private val testDispatcher = StandardTestDispatcher(testScheduler) // Use shared scheduler
+    private val testDispatchersProvider = TestDispatchersProvider(testDispatcher) // Use TestDispatchersProvider
 
     @Before
     fun setUp() {
-        repository = RepoRepositoryImpl(api, testDispatcher)
+        repository = RepoRepositoryImpl(api, testDispatchersProvider)
     }
 
     @After
