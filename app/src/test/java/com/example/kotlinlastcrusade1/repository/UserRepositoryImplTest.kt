@@ -7,6 +7,7 @@ import com.example.kotlinlastcrusade1.data.repository.UserRepositoryImpl
 import com.example.kotlinlastcrusade1.domain.model.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
@@ -43,7 +44,7 @@ class UserRepositoryImplTest {
             UserDto(id = 1, login = "User1", bio = "Bio1", avatarUrl = "url1"),
             UserDto(id = 2, login = "User2", bio = "Bio2", avatarUrl = "url2"),
         )
-        val expectedRepos = listOf(
+        val expectedUsers = listOf(
             User(id = 1, login = "User1", bio = "Bio1", avatarUrl = "url1"),
             User(id = 2, login = "User2", bio = "Bio2", avatarUrl = "url2"),
         )
@@ -51,11 +52,15 @@ class UserRepositoryImplTest {
         // Configure mock to return a list of DTOs
         `when`(api.getUsers()).thenReturn(apiResponse)
 
-        val result = repository.getUsers()
+        // Get users as Flow
+        val resultFlow = repository.getUsersFlow()
 
-        verify(api).getUsers()
+        // Collect the result from the Flow
+        val result = resultFlow.toList() // Collects all emitted values
 
-        assertEquals(expectedRepos, result)
+        verify(api).getUsers() // Verify that the API was called
+
+        assertEquals(expectedUsers, result.first()) // Compare with the expected result
     }
 
     @Test
@@ -74,13 +79,19 @@ class UserRepositoryImplTest {
             avatarUrl = "url1",
         )
 
-        // Configure mock to return a list of DTOs
+        // Configure mock to return DTOs
         `when`(api.getUserDetails(username)).thenReturn(apiResponse)
 
-        val result = repository.getUserDetails(username)
+        // Get user details as Flow
+        val resultFlow = repository.getUserDetailsFlow(username)
 
+        // Collect the result from the Flow
+        val result = resultFlow.toList() // Collects all emitted values
+
+        // Verify the API call
         verify(api).getUserDetails(username)
 
-        assertEquals(expectedRepos, result)
+        // Assert that the first value emitted matches expected user
+        assertEquals(expectedRepos, result.first())
     }
 }

@@ -53,8 +53,10 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.core)
 
+    // Material
     api(libs.material)
 
+    // Load images
     implementation(libs.coil)
 
     // Retrofit and Networking

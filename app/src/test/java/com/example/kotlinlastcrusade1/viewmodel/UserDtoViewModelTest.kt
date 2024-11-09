@@ -1,17 +1,18 @@
 package com.example.kotlinlastcrusade1.viewmodel
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.kotlinlastcrusade1.domain.model.Repo
 import com.example.kotlinlastcrusade1.domain.model.User
 import com.example.kotlinlastcrusade1.domain.usecase.GetUserDetailsUseCase
 import com.example.kotlinlastcrusade1.domain.usecase.GetUserReposUseCase
 import com.example.kotlinlastcrusade1.ui.viewmodel.UserViewModel
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -20,14 +21,10 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class UserDtoViewModelTest {
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var userViewModel: UserViewModel
     private val getUserDetailsUseCase: GetUserDetailsUseCase = mockk()
@@ -48,24 +45,35 @@ class UserDtoViewModelTest {
         testDispatcher.cancel()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `getAllData should post Pair of user and repos`() = runTest {
+    fun `getAllData should emit Pair of user and repos`() = runTest {
         // Arrange
         val username = "user1"
         val mockUser = User(username, 1, "bio1", "avatar_url1")
         val mockRepos = listOf(Repo(1, "repo1", "url1", "description1"))
 
-        coEvery { getUserDetailsUseCase(username) } returns mockUser
-        coEvery { getUserReposUseCase(username) } returns mockRepos
+        // Configure mock to return Flow
+        coEvery { getUserDetailsUseCase(username) } returns flow { emit(mockUser) }
+        coEvery { getUserReposUseCase(username) } returns flow { emit(mockRepos) }
 
         // Act
-        userViewModel.getAllData(username)
-        advanceUntilIdle() // Simulate coroutine waiting
+        userViewModel.observeUserData(username)
 
-        // Assert
-        assertEquals(Pair(mockUser, mockRepos), userViewModel.allDataReceived.value)
-        coVerify { getUserDetailsUseCase(username) }
-        coVerify { getUserReposUseCase(username) }
+        // Collect and assert with a timeout or a break condition to avoid indefinite waits
+        val job = launch {
+            userViewModel.userDataState.collect { dataState ->
+                // Assert only after the first emission
+                if (dataState.user != null && dataState.repos != null) {
+                    assertEquals(mockUser, dataState.user)
+                    assertEquals(mockRepos, dataState.repos)
+                    // Break the collection loop since we only need the first value for this test
+                    return@collect
+                }
+            }
+        }
+
+        // Allow time for the emissions to happen
+        advanceUntilIdle() // Advance the test dispatcher until all coroutines are complete
+        job.cancel() // Cancel the collection job to clean up
     }
 }

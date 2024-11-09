@@ -8,6 +8,8 @@ import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -40,12 +42,17 @@ class GetUsersUseCaseTest {
     fun `invoke should return list of users`() = runTest {
         // Arrange
         val mockUsers = listOf(User("user1", 1, "bio1", "avatar_url1"))
-        coEvery { mockRepository.getUsers() } returns mockUsers
+
+        // Configure the repository mock to return a Flow
+        coEvery { mockRepository.getUsersFlow() } returns flow { emit(mockUsers) }
 
         // Act
-        val result = getUsersUseCase()
+        val resultFlow = getUsersUseCase() // Call the use case, which returns a Flow
+
+        // Collect the result from the Flow
+        val result = resultFlow.toList() // Collects all emitted values
 
         // Assert
-        assertEquals(mockUsers, result)
+        assertEquals(mockUsers, result.first()) // Compare with the expected result
     }
 }

@@ -7,6 +7,7 @@ import com.example.kotlinlastcrusade1.data.repository.RepoRepositoryImpl
 import com.example.kotlinlastcrusade1.domain.model.Repo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
@@ -49,13 +50,19 @@ class RepoRepositoryImplTest {
             Repo(id = 2, name = "Repo2", description = "Repo2", url = "url2")
         )
 
-        // Configure mock to return a list of DTOs
+        // Configure mock to return a Flow of DTOs
         `when`(api.getUserRepos(username)).thenReturn(apiResponse)
 
-        val result = repository.getUserRepos(username)
+        // Get repos as Flow
+        val resultFlow = repository.getUsersReposFlow(username)
 
+        // Collect the result from the Flow
+        val result = resultFlow.toList() // Collect all emitted values
+
+        // Verify that the API was called
         verify(api).getUserRepos(username)
 
-        assertEquals(expectedRepos, result)
+        // Assert that the first value emitted matches expected repos
+        assertEquals(expectedRepos, result.first())
     }
 }

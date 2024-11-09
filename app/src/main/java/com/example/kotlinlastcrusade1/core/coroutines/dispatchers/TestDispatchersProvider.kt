@@ -4,7 +4,7 @@ import com.example.kotlinlastcrusade1.core.coroutines.dispatchers.base.Dispatche
 import kotlinx.coroutines.CoroutineDispatcher
 
 class TestDispatchersProvider(
-    private val testDispatcher: CoroutineDispatcher
+    testDispatcher: CoroutineDispatcher
 ) : DispatchersProvider {
     override val default: CoroutineDispatcher = testDispatcher
     override val io: CoroutineDispatcher = testDispatcher

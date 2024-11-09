@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinlastcrusade1.R
@@ -12,6 +15,7 @@ import com.example.kotlinlastcrusade1.databinding.FragmentMainBinding
 import com.example.kotlinlastcrusade1.ui.adapter.UserAdapter
 import com.example.kotlinlastcrusade1.ui.base.BaseFragment
 import com.example.kotlinlastcrusade1.ui.viewmodel.MainViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -28,9 +32,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         viewBinding.apply {
             configureComponents()
 
-            observerUsers()
-
             startInitializationsAndCalls()
+
+            collectUsers()
         }
 
         return view
@@ -45,14 +49,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         setupRecyclerView()
     }
 
-    private fun observerUsers() {
-        viewModel.users.observe(viewLifecycleOwner) { users ->
-            userAdapter.submitList(users)
-        }
-    }
-
     private fun startInitializationsAndCalls() {
         viewModel.getUsers()
+    }
+
+    private fun collectUsers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Collect user list
+                viewModel.users.collect { userList ->
+                    userAdapter.submitList(userList)
+                }
+            }
+        }
     }
 
     private fun FragmentMainBinding.setupRecyclerView() {
