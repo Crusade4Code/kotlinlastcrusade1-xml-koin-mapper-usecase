@@ -13,7 +13,7 @@ This project uses the GitHub API to retrieve and display information from Users 
 - **Unit Testing**: Ensuring the functionality and integration between layers to prevent regressions and maintain quality.
 - **LiveData**: For observing and updating the UI with reactive data.
 - **Using:**
-  - **Livedata**
+  - **LiveData**: For observing and updating the UI with reactive data.
 
 ## KotlinLastCrusade1 Wiki
 
