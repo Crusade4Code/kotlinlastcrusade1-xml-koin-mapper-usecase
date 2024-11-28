@@ -11,8 +11,8 @@ This project uses the GitHub API to retrieve and display information from Users 
 - **UseCases**: Encapsulation of business rules and core operations, isolating application logic.
 - **Koin for Dependency Injection**: Simplified configuration of dependencies for modularity and testing.
 - **Unit Testing**: Ensuring the functionality and integration between layers to prevent regressions and maintain quality.
-**Using:**
-- **Flow**: For asynchronous and reactive data streams, enabling non-blocking and continuous data collection and manipulation.
+- **Using:**
+  - **Flow**: For asynchronous and reactive data streams, enabling non-blocking and continuous data collection and manipulation.
 
 ## KotlinLastCrusade1 Wiki
 
