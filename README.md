@@ -12,6 +12,8 @@ This project uses the GitHub API to retrieve and display information from Users 
 - **Koin for Dependency Injection**: Simplified configuration of dependencies for modularity and testing.
 - **Unit Testing**: Ensuring the functionality and integration between layers to prevent regressions and maintain quality.
 - **LiveData**: For observing and updating the UI with reactive data.
+- **Using:**
+  - **Livedata**
 
 ## KotlinLastCrusade1 Wiki
 
