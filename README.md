@@ -23,7 +23,7 @@ For a deeper dive into the architecture, SOLID principles, and additional techni
 <pre style="display: inline-block; margin: 0; padding: 0; background: none; border: none;">
               ┌──────────────┐        
               │              │        
-              │     <a href="https://github.com/Crusade4Code/kotlinlastcrusade1-xml-koin-mapper-usecase/tree/main" style="text-decoration: none; color: inherit; display: inline-block;">Main</a>     │   LiveData (YOU ARE HERE)
+              │     <a href="https://github.com/Crusade4Code/kotlinlastcrusade1-xml-koin-mapper-usecase/tree/main" style="text-decoration: none; color: inherit; display: inline-block;">Main</a>     │   LiveData   (YOU ARE HERE)
               │              │        
               └──────┬───────┘        
                      │                
