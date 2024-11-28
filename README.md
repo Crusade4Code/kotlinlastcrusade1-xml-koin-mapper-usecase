@@ -24,20 +24,18 @@ For a deeper dive into the architecture, SOLID principles, and additional techni
   <pre style="display: inline-block; margin: 0; padding: 0; background: none; border: none;">
               ┌──────────────┐        
               │              │        
-              │ <b style="color: red;">    Main    </b> │ 
+              │     <a href="https://github.com/Crusade4Code/kotlinlastcrusade1-xml-koin-mapper-usecase/tree/main" style="text-decoration: none; color: inherit; display: inline-block;">Main</a>     │   LiveData 
               │              │        
               └──────┬───────┘        
                      │                
-                     │                
-                     │                
-       ┌─────────────┴────────────────
+       ┌─────────────┴───────────────
        │                              
 ┌──────┴───────┐                      
 │              │                      
-│     <a href="https://github.com/Crusade4Code/crusade4code.github.io" style="text-decoration: none; color: inherit; display: inline-block;">Flow</a>     │                      
+│     <a href="https://github.com/Crusade4Code/kotlinlastcrusade1-xml-koin-mapper-usecase/tree/flow" style="text-decoration: none; color: inherit; display: inline-block;">Flow</a>     │   (You are here)                       
 │              │                      
 └──────────────┘                      
-  </pre>
+</pre> 
 </div>     
 
 ## Getting Started
